@@ -1,0 +1,29 @@
+#include "Matrix.h"
+#include <iostream>
+#include <iomanip>
+#include <string>
+using namespace std;
+
+ostream& operator<<(ostream& out, const Matrix& matrix) {
+
+}
+
+Matrix::Matrix(int p1, int p2) {
+
+}
+
+bool Matrix::moveLeft() {
+
+}
+
+bool Matrix::moveRight() {
+
+}
+
+bool Matrix::moveUp() {
+
+}
+
+bool Matrix::moveDown() {
+
+}

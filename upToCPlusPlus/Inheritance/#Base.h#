@@ -1,0 +1,8 @@
+// for testing Inheritance
+// Base.h
+
+#include <iostream>
+
+class Base {
+ public:
+}

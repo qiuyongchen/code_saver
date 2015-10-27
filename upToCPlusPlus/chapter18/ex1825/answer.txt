@@ -1,0 +1,2 @@
+1. the longer the cryptogram is, the easier it is for us to decode it.
+2. make the code as short as possible.

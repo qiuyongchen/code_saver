@@ -1,0 +1,20 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class FileSymItem {
+ protected:
+  string name;
+ public:
+  FileSymItem(const string& nameTemp) {
+    name = nameTemp;
+  }
+
+  void rename(const string& nameTemp) {
+    name = nameTemp;
+  }
+
+  virtual int getSize() = 0;
+
+};
+
