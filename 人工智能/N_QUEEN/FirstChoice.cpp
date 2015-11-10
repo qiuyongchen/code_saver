@@ -1,0 +1,47 @@
+#include "FirstChoice.h"
+
+FirstChoice::FirstChoice()
+{
+}
+
+FirstChoice::~FirstChoice()
+{
+}
+
+FirstChoice::FirstChoice(CHESS_STATE chessState)
+{
+	initState = chessState;
+	stateGenerated = 0;
+}
+
+// ¿ªÊ¼ÅÀÉ½
+CHESS_STATE FirstChoice::climbing()
+{
+	stateGenerated = 0;
+
+	CHESS_STATE currentState = initState;
+	std::vector<CHESS_STATE> nextState;
+	bool flag = false;
+
+	while (true)
+	{
+		flag = false;
+
+		nextState.clear();
+		nextState = currentState.getNextStates();
+		stateGenerated += currentState.getNextStatesSize();
+
+		for (int i = 0; i < nextState.size(); i++)
+		{
+			if (currentState.evalution > nextState[i].evalution) {
+				currentState = nextState[i];
+				flag = true;
+				break;
+			}
+		}
+
+		if (!flag) {
+			return currentState;
+		}
+	}
+}
