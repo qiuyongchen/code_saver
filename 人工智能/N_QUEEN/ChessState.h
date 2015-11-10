@@ -2,7 +2,7 @@
 #define CHESSSTATE_H
 
 #include <list>
-#include <time.h>
+#include <cstdlib>
 #include <vector>
 #include "ChessMan.h"
 
@@ -20,7 +20,6 @@
 class CHESS_STATE
 {
 public:
-	double ddd = 0.001;
 
 	int evalution; // 整个棋盘的评估值
 	int size; // 棋盘的大小
@@ -47,10 +46,6 @@ public:
 	CHESS_STATE getRandomState();
 
 	int getSize();
-
-	void setSize(int size_);
-
-private:
 
 };
 

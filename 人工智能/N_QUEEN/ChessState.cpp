@@ -76,8 +76,3 @@ int CHESS_STATE::getSize()
 {
 	return size;
 }
-
-void CHESS_STATE::setSize(int size_)
-{
-	size = size_;
-}

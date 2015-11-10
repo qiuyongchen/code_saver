@@ -1,7 +1,6 @@
 #ifndef CHESSSTATEGENERATOR_H
 #define CHESSSTATEGENERATOR_H
 
-#include<time.h>
 #include "ChessState.h"
 #define random(x) (rand()%x)
 

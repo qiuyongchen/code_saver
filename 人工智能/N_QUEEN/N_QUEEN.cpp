@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include <time.h>
 #include "ChessState.h"
 #include "ChessStateGenerator.h"
 #include "FirstChoice.h"
@@ -9,8 +10,53 @@
 
 #define MAX(a,b) (((a) > (b)) ? (a) : (b))
 #define MIN(a,b) (((a) < (b)) ? (a) : (b))
-#define CASE 1000
-#define CASEF 1000.0
+#define CASE 200
+#define CASEF 200.0
+
+void randomRestart() {
+	ChessStateGenerator generator;
+
+	/* randomRestart *************************************************/
+	double randomRestartStateGenerated = 0;
+	int randomRestartPass = 0;
+	double randomRestartPassRate = 0;
+	double randomRestartMin = 9999999;
+	double randomRestartMax = 0;
+	double randomRestartAve = 0;
+
+	std::cout << "it will take a few seconds to get the result, please wait for a moment.\n";
+
+	for (int i = 0; i < CASE; i++)
+	{
+		CHESS_STATE initState = generator.getNewState();
+
+		RandomRestart randomRestart = RandomRestart(initState);
+
+		if (randomRestart.climbing().evalution == 0)
+		{
+			randomRestartPass++;
+			std::cout << "1";
+		}
+		else
+		{
+			std::cout << "0";
+		}
+		randomRestartStateGenerated += randomRestart.stateGenerated;
+		randomRestartMin = MIN(randomRestartMin, randomRestart.stateGenerated);
+		randomRestartMax = MAX(randomRestartMax, randomRestart.stateGenerated);
+	}
+	randomRestartPassRate = randomRestartPass / CASEF;
+	randomRestartAve = randomRestartStateGenerated / CASEF;
+
+	std::cout << "\nData about randomRestart:";
+	std::cout << "\nTotal states generated: " << randomRestartStateGenerated
+		<< "\nMin states: " << randomRestartMin
+		<< "\nMax states: " << randomRestartMax
+		<< "\nAve states: " << randomRestartAve
+		<< "\nTotal Pass cases in " << CASEF << " cases: " << randomRestartPass
+		<< "\nPass rate: " << randomRestartPassRate
+		<< "\n\n";
+}
 
 void simulatedAnnealing() {
 	ChessStateGenerator generator;
@@ -34,10 +80,13 @@ void simulatedAnnealing() {
 		CHESS_STATE finalState = simulatedAnnealing.climbing(30, 0.0001);
 		if (finalState.evalution == 0)
 		{
-			std::cout << "case " << i << " found**************\n";
 			simulatedAnnealingPass++;
+			std::cout << "1";
 		}
-		std::cout << "case " << i << " done\n";
+		else
+		{
+			std::cout << "0";
+		}
 		simulatedAnnealingStateGenerated += simulatedAnnealing.stateGenerated;
 		simulatedAnnealingMin = MIN(simulatedAnnealingMin, simulatedAnnealing.stateGenerated);
 		simulatedAnnealingMax = MAX(simulatedAnnealingMax, simulatedAnnealing.stateGenerated);
@@ -45,53 +94,13 @@ void simulatedAnnealing() {
 	simulatedAnnealingPassRate = simulatedAnnealingPass / CASEF;
 	simulatedAnnealingAve = simulatedAnnealingStateGenerated / CASEF;
 
-	std::cout << "Data about simulatedAnnealing:";
+	std::cout << "\nData about simulatedAnnealing:";
 	std::cout << "\nTotal states generated: " << simulatedAnnealingStateGenerated
 		<< "\nMin states: " << simulatedAnnealingMin
 		<< "\nMax states: " << simulatedAnnealingMax
 		<< "\nAve states: " << simulatedAnnealingAve
-		<< "\nTotal Pass caes in 1000 case: " << simulatedAnnealingPass
+		<< "\nTotal Pass cases in " << CASEF << " cases: " << simulatedAnnealingPass
 		<< "\nPass rate: " << simulatedAnnealingPassRate
-		<< "\n\n";
-}
-
-void randomRestart() {
-	ChessStateGenerator generator;
-
-	/* randomRestart *************************************************/
-	double randomRestartStateGenerated = 0;
-	int randomRestartPass = 0;
-	double randomRestartPassRate = 0;
-	double randomRestartMin = 9999999;
-	double randomRestartMax = 0;
-	double randomRestartAve = 0;
-
-	std::cout << "it will take a few seconds to get the result, please wait for a moment.\n";
-
-	for (int i = 0; i < CASE; i++)
-	{
-		CHESS_STATE initState = generator.getNewState();
-
-		RandomRestart randomRestart = RandomRestart(initState);
-
-		if (randomRestart.climbing().getEvalution() == 0)
-		{
-			randomRestartPass++;
-		}
-		randomRestartStateGenerated += randomRestart.stateGenerated;
-		randomRestartMin = MIN(randomRestartMin, randomRestart.stateGenerated);
-		randomRestartMax = MAX(randomRestartMax, randomRestart.stateGenerated);
-	}
-	randomRestartPassRate = randomRestartPass / CASEF;
-	randomRestartAve = randomRestartStateGenerated / CASEF;
-
-	std::cout << "Data about randomRestart:";
-	std::cout << "\nTotal states generated: " << randomRestartStateGenerated
-		<< "\nMin states: " << randomRestartMin
-		<< "\nMax states: " << randomRestartMax
-		<< "\nAve states: " << randomRestartAve
-		<< "\nTotal Pass caes in 1000 case: " << randomRestartPass
-		<< "\nPass rate: " << randomRestartPassRate
 		<< "\n\n";
 }
 
@@ -114,10 +123,16 @@ void firstChoice() {
 
 		FirstChoice firstChoice = FirstChoice(initState);
 
-		if (firstChoice.climbing().getEvalution() == 0)
+		if (firstChoice.climbing().evalution == 0)
 		{
 			firstChoicePass++;
+			std::cout << "1";
 		}
+		else
+		{
+			std::cout << "0";
+		}
+
 		firstChoiceStateGenerated += firstChoice.stateGenerated;
 		firstChoiceMin = MIN(firstChoiceMin, firstChoice.stateGenerated);
 		firstChoiceMax = MAX(firstChoiceMax, firstChoice.stateGenerated);
@@ -125,12 +140,12 @@ void firstChoice() {
 	firstChoicePassRate = firstChoicePass / CASEF;
 	firstChoiceAve = firstChoiceStateGenerated / CASEF;
 
-	std::cout << "Data about firstChoice:";
+	std::cout << "\nData about firstChoice:";
 	std::cout << "\nTotal states generated: " << firstChoiceStateGenerated
 		<< "\nMin states: " << firstChoiceMin
 		<< "\nMax states: " << firstChoiceMax
 		<< "\nAve states: " << firstChoiceAve
-		<< "\nTotal Pass caes in 1000 case: " << firstChoicePass
+		<< "\nTotal Pass cases in " << CASEF << " cases: " << firstChoicePass
 		<< "\nPass rate: " << firstChoicePassRate
 		<< "\n\n";
 }
@@ -154,10 +169,16 @@ void steepestAscent() {
 
 		SteepestAscent steepestAscent = SteepestAscent(initState);
 
-		if (steepestAscent.climbing().getEvalution() == 0)
+		if (steepestAscent.climbing().evalution == 0)
 		{
 			steepestAscentPass++;
+			std::cout << "1";
 		}
+		else
+		{
+			std::cout << "0";
+		}
+		
 		steepestAscentStateGenerated += steepestAscent.stateGenerated;
 		steepestAscentMin = MIN(steepestAscentMin, steepestAscent.stateGenerated);
 		steepestAscentMax = MAX(steepestAscentMax, steepestAscent.stateGenerated);
@@ -165,21 +186,18 @@ void steepestAscent() {
 	steepestAscentPassRate = steepestAscentPass / CASEF;
 	steepestAscentAve = steepestAscentStateGenerated / CASEF;
 
-	std::cout << "Data about steepestAscent:";
+	std::cout << "\nData about steepestAscent:";
 	std::cout << "\nTotal states generated: " << steepestAscentStateGenerated
 		<< "\nMin states: " << steepestAscentMin
 		<< "\nMax states: " << steepestAscentMax
 		<< "\nAve states: " << steepestAscentAve
-		<< "\nTotal Pass caes in 1000 case: " << steepestAscentPass
+		<< "\nTotal Pass cases in "<< CASEF << " cases: " << steepestAscentPass
 		<< "\nPass rate: " << steepestAscentPassRate
 		<< "\n\n";
 }
 
-
 int main() {
 	srand((int)time(0));
-
-	simulatedAnnealing();
 
 	firstChoice();
 
@@ -187,6 +205,7 @@ int main() {
 
 	randomRestart();
 
+	simulatedAnnealing();
 
 	return 0;
 }

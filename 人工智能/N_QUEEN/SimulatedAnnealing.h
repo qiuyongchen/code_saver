@@ -2,7 +2,6 @@
 #define SIMULATEDANNEALING_H
 
 #include <cmath>
-#include <time.h>
 #include "ChessState.h"
 
 #define random(x) (rand()%x)

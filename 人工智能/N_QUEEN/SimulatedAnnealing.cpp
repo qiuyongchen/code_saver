@@ -28,13 +28,9 @@ CHESS_STATE SimulatedAnnealing::climbing(double temperator_, double sche)
 
 	while (currentState.evalution != 0 && temperator > 0)
 	{
-
 		// 随机选择一个新状态
 		newState = currentState.getRandomState();
-		stateGenerated ++;
-
-		if (newState.evalution == 0)
-			return newState;
+		stateGenerated++;
 
 		d = currentState.evalution - newState.evalution;
 		if (d > 0)
@@ -53,9 +49,11 @@ CHESS_STATE SimulatedAnnealing::climbing(double temperator_, double sche)
 				currentState = newState;
 			}
 		}
-		if (currentState.evalution == 0)
-			return newState;
 
+		if (temperator >= 2)
+		{
+			temperator -= sche * 10;
+		}
 		temperator -= sche; // 逐渐退火
 	}
 	return currentState;
