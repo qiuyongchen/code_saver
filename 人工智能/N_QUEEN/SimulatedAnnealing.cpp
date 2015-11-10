@@ -44,8 +44,8 @@ CHESS_STATE SimulatedAnnealing::climbing(double temperator_, double sche)
 		else
 		{
 			probability = exp(d / temperator);
-			srand((int)time(0));
-			randProbability = random(99) / 100.0;
+
+			randProbability = random(10000) / 10000.0;
 			// 如果概率百分百，那么0到1之内的数都中；
 			// 如果概率只有百分之十，那么0到0.1之内的数才中
 			if (randProbability <= probability)

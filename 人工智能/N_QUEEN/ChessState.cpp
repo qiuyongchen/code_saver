@@ -62,10 +62,14 @@ int CHESS_STATE::getNextStatesSize()
 
 CHESS_STATE CHESS_STATE::getRandomState()
 {
-	std::vector<CHESS_STATE> nexts = getNextStates();
-	srand((int)time(0));
+	int c = rand() % (SIZE);
+	int r = (rand() % (SIZE - 1)) + 1;
 
-	return nexts.at(random(nexts.size()));
+	CHESS_STATE newState(*this);
+	newState.chessMans[c].action(r);
+	newState.getEvalution();
+
+	return newState;
 }
 
 int CHESS_STATE::getSize()

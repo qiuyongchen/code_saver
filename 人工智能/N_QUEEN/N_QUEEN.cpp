@@ -31,7 +31,7 @@ void simulatedAnnealing() {
 
 		SimulatedAnnealing simulatedAnnealing = SimulatedAnnealing(initState);
 
-		CHESS_STATE finalState = simulatedAnnealing.climbing(100, 1);
+		CHESS_STATE finalState = simulatedAnnealing.climbing(30, 0.0001);
 		if (finalState.evalution == 0)
 		{
 			std::cout << "case " << i << " found**************\n";
@@ -177,7 +177,9 @@ void steepestAscent() {
 
 
 int main() {
-//	simulatedAnnealing();
+	srand((int)time(0));
+
+	simulatedAnnealing();
 
 	firstChoice();
 
